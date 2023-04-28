@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AncientCartoonSkin
+  m_Shader: {fileID: 4800000, guid: 6d46e8b6c679da94f8236d26af90fb8c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutLineTex:
+        m_Texture: {fileID: 2800000, guid: 4e5aadaca9384ec46a4f90c687b9fc7f, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 0fdb57787c13baa4e820b8245c0f74e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Outline: 0.03
+    - _SpecularScale: 0.051
+    m_Colors:
+    - _Color: {r: 0.95294124, g: 0.95294124, b: 0.95294124, a: 1}
+    - _OutlineColor: {r: 0.9622642, g: 0.72752523, b: 0.5582948, a: 1}
+    - _Specular: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
+  m_BuildTextureStacks: []
