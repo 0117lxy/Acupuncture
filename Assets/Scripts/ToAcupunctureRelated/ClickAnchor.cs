@@ -130,7 +130,7 @@ public class ClickAnchor : MonoBehaviour
             _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[(int)index]);
             //Debug.Log(""+_UIManagerController.name);
             _ButtonGroups[(int)index]._Anchor.gameObject.SetActive(false);
-            tipForClick.isClicked[tipForClick.clickQueue[tipForClick.clickNum]] = true;
+            tipForClick.isClicked[Game01._NowLevel, tipForClick.clickQueue[tipForClick.clickNum]] = true;
         }
     }
     

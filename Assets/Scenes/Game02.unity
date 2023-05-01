@@ -4023,6 +4023,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NiddleType
       objectReference: {fileID: 0}
+    - target: {fileID: 2328604546642094030, guid: 5246c89c0c7d7d3448ea59b973d2403c, type: 3}
+      propertyPath: _NiddlePrefab
+      value: 
+      objectReference: {fileID: 7974444383379115385, guid: 72bff927b546202438d376226333421d, type: 3}
     - target: {fileID: 2328604546642094031, guid: 5246c89c0c7d7d3448ea59b973d2403c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

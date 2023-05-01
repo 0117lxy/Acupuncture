@@ -6,59 +6,100 @@ using UnityEngine.EventSystems;
 
 public class TipForClick : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public GameObject clickTipObject;//提示物体
-    private string[] clickTip;//提示信息
+
     public int clickTipNum;//提示信息数量
-    public bool[] isClicked;//是否被点击
+    public bool[,] isClicked;//是否被点击
     public int[] clickQueue;//点击顺序
     public int clickNum;//点击到第几个
-    public bool _ClickAll;
-    ClickAnchor _ClickAnchor;
+    public bool[] _ClickAll;//某一套穴位是否点击完
+    public ClickAnchor[] _ClickAnchor;//某一套穴位的点击脚本
 
+    public GameObject[] _AnchorNameHelp;//穴位名字介绍
 
-    public GameObject _AnchorNameHelp;//穴位名字介绍
-    //public float _AnchorNameHelpMaxTime;//最长存在时间
-    //private float _AnchorNameHelpAliveTime;//存在时间
-    public GameObject _CountDown;//倒计时
+    public GameObject[] _CountDown;//倒计时
     public int _CountDownTime;
     public Coroutine _Coroutine;
     
     private void Awake()
     {
-        clickTip = new string[clickTipNum];
-        isClicked = new bool[clickTipNum];
+        isClicked = new bool[3, clickTipNum];
         clickQueue = new int[clickTipNum];
+        _ClickAll = new bool[clickTipNum];
+
+        //_ClickAnchor = new ClickAnchor[3];
     }
+
     void Start()
     {
-        //是否点击了所有穴位
-        _ClickAll = false;
 
+        //初始化
         for (int i = 0; i < clickTipNum; i++)
         {
-            clickTip[i] = "" + (i + 1);
-            isClicked[i] = false;
+            for(int j = 0; j < 3; j++)
+            {
+                isClicked[j,i] = false;
+            }
+            clickQueue[i] = i;
+            //isClicked[i] = false;
+            _ClickAll[i] = false;
         }
-        clickQueue[0] = 0;
-        clickQueue[1] = 1;
-        clickQueue[2] = 2;
 
         clickNum = 0;
 
-        _ClickAnchor = GameObject.Find("Anchor1").GetComponent<ClickAnchor>();
-
-        //_AnchorNameHelpAliveTime = 0f;
         _CountDownTime = 3;
-        //_Coroutine = StartCoroutine(CountDownCoroutine());
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(_CountDownTime == 0)
+
+        ShowClickQueueTip(_CountDownTime);
+
+        IsShowAnchorNameHelp(_CountDownTime);
+
+    }
+
+    void ShowClickTip(int index)
+    {
+        //Debug.Log("Game01._NowLevel : " + Game01._NowLevel);
+        clickTipObject.GetComponent<Text>().text = _ClickAnchor[Game01._NowLevel]._Anchor1Names[index];
+       
+    }
+
+    public IEnumerator CountDownCoroutine()
+    {
+        while (_CountDownTime > 0)
         {
-            if (!isClicked[clickQueue[clickNum]])
+            Debug.Log("_CountDownTime is :" + _CountDownTime);
+            _CountDown[Game01._NowLevel].GetComponent<Text>().text = _CountDownTime.ToString();
+            yield return new WaitForSeconds(1f);
+            _CountDownTime--;
+        }
+        Debug.Log("Time is up!");
+    }
+
+    //是否展示穴位提示
+    void IsShowAnchorNameHelp(int flag)
+    {
+        if(flag == 0)
+        {
+            _AnchorNameHelp[Game01._NowLevel].SetActive(false);
+            if(_Coroutine != null)
+            {
+                StopCoroutine(CountDownCoroutine());
+                _Coroutine = null;
+            }
+        }
+    }
+
+    //显示点击提示序列中的提示
+    void ShowClickQueueTip(int flag)
+    {
+        if(flag == 0)
+        {
+            if (isClicked[Game01._NowLevel, clickQueue[clickNum]] == false)
             {
                 //Debug.Log("ClickNum: " + clickNum);
                 ShowClickTip(clickQueue[clickNum]);
@@ -72,40 +113,12 @@ public class TipForClick : MonoBehaviour
                 }
                 else
                 {
-                    _ClickAll = true;
+                    _ClickAll[Game01._NowLevel] = true;
+                    //clickTipObject.GetComponent<Text>().text = "";
+                    //clickNum = clickNum % clickTipNum;
                 }
             }
         }
-        
-        IsShowAnchorNameHelp(_CountDownTime);
-
     }
 
-    void ShowClickTip(int index)
-    {
-        clickTipObject.GetComponent<Text>().text = _ClickAnchor._Anchor1Names[index];
-    }
-
-    public IEnumerator CountDownCoroutine()
-    {
-        while (_CountDownTime > 0)
-        {
-            _CountDown.GetComponent<Text>().text = _CountDownTime.ToString();
-            yield return new WaitForSeconds(1f);
-            _CountDownTime--;
-        }
-        Debug.Log("Time is up!");
-    }
-
-    void IsShowAnchorNameHelp(int flag)
-    {
-        if(flag == 0)
-        {
-            _AnchorNameHelp.SetActive(false);
-            if(_Coroutine != null)
-            {
-                StopCoroutine(CountDownCoroutine());
-            }
-        }
-    }
 }

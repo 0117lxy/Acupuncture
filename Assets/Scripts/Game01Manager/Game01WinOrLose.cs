@@ -13,7 +13,15 @@ public class Game01WinOrLose : MonoBehaviour
     public GameObject _ClickTip;//点击提示组件，用于获取_ClickAll
     public string _BackScene;
 
-    // Start is called before the first frame update
+    public GameObject _RewardPanel;//奖励面板
+    public Button _RewardContinueButton;//奖励界面继续游戏的按钮
+
+    public GameObject[] _AnchorNameHelp;
+
+    public GameObject[] _Anchors;//穴位组
+
+    public GameObject _TipObject;//提示物体
+
     void Start()
     {
         _BackScene = "Game00";
@@ -30,11 +38,21 @@ public class Game01WinOrLose : MonoBehaviour
             SceneManager.LoadScene("Loading");
         });
 
+        _RewardContinueButton.onClick.AddListener(delegate ()
+        {
+            _RewardPanel.SetActive(false);
+            _Anchors[Game01._NowLevel].SetActive(true);
+            _TipObject.GetComponent<Text>().enabled = true;
+            _AnchorNameHelp[Game01._NowLevel].SetActive(true);
+            _ClickTip.GetComponent<TipForClick>()._CountDownTime = 3;
+            _ClickTip.GetComponent<TipForClick>()._Coroutine = StartCoroutine(_ClickTip.GetComponent<TipForClick>().CountDownCoroutine());          
+        });
     }
 
     // Update is called once per frame
     void Update()
     {
+        ToReward();
         ToWin();
         ToLose();
     }
@@ -42,7 +60,7 @@ public class Game01WinOrLose : MonoBehaviour
     //胜利判断
     void ToWin()
     {
-        if(_ClickTip.GetComponent<TipForClick>()._ClickAll == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0)
+        if(_ClickTip.GetComponent<TipForClick>()._ClickAll[Game01._NowLevel] == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0 && Game01._NowLevel == 2)
         {
             _WinPanel.SetActive(true);
         }
@@ -54,6 +72,18 @@ public class Game01WinOrLose : MonoBehaviour
         if(_LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber == 0)
         {
             _LosePanel.SetActive(true);
+        }
+    }
+
+    void ToReward()
+    {
+        if(_ClickTip.GetComponent<TipForClick>()._ClickAll[Game01._NowLevel] == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0 && Game01._NowLevel < 2)
+        {
+            _Anchors[Game01._NowLevel].SetActive(false);
+            Game01._NowLevel++;
+            _TipObject.GetComponent<Text>().enabled = false;
+            _ClickTip.GetComponent<TipForClick>().clickNum = 0;
+            _RewardPanel.SetActive(true);
         }
     }
 }
