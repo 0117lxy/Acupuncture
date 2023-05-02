@@ -12,6 +12,8 @@ public class LifeNumberChange : MonoBehaviour
     private GameObject[] heart;
     public UIManagerController _UIManagerController;
 
+    public CameraShake _CameraShake;//相机晃动
+
     //test
     public int theHeartNumber;
     private void Awake()
@@ -33,7 +35,7 @@ public class LifeNumberChange : MonoBehaviour
         theHeartNumber = maxHeartNumber;
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         /*if(Input.GetKeyDown(KeyCode.Space))
@@ -63,7 +65,12 @@ public class LifeNumberChange : MonoBehaviour
     {
         if(nowHeartNumber != theHeartNumber)
         {
+            //显示受伤特效
             _UIManagerController.ShowUpHurtImage();
+            //相机晃动
+            Debug.Log("is Change heart number???");
+            _CameraShake.StartShake();
+
             nowHeartNumber = theHeartNumber;
             isChangeHeartNumber = true;
         }

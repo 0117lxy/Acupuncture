@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameSelectNiddle
-{
-    public static int _NiddleNum;
-}
 
 public class MagicNiddle : MonoBehaviour
 {
@@ -30,25 +26,18 @@ public class MagicNiddle : MonoBehaviour
     public Coroutine _CoroutineSwag;//交换的协程
     public float _SwagDuration;//交换位置的时间
     public float _SwagGapDuration;//两次交换的间隔时间
-    private int _CurSwagNum;//已经交换的次数
+    public int _CurSwagNum;//已经交换的次数
     public int _SwagInvokeTime;//交换的次数
     public bool _IsBagsCanSwag;//是否可以开始交换
 
+    public GameSelectNiddleManager _GameSelectNiddleManager;
+
     private void Start()
     {
-        GameSelectNiddle._NiddleNum = 0;
 
         //屏幕中间位置
-        Vector3 center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-
-        for(int i = 0; i < _Bags.Length; i++)
-        {
-            Vector3 pos = new Vector3(-(_Bags.Length - 1) * _OffsetX + i * 2 * _OffsetX,
-                                      _OffsetY,
-                                      0);
-            _Bags[i].GetComponent<RectTransform>().anchoredPosition = pos;
-        }
-
+        //Vector3 center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+   
     }
 
     private void Update()
@@ -58,6 +47,7 @@ public class MagicNiddle : MonoBehaviour
         {
             if(_CoroutineBagsMoveToBottom == null)
             {
+                _CurSwagNum = 0;
                 _CoroutineBagsMoveToBottom = StartCoroutine(MoveToBottom());
             }
         }
@@ -78,6 +68,24 @@ public class MagicNiddle : MonoBehaviour
                         
         }
 
+        //销毁swag协程
+        if(_CurSwagNum == _SwagInvokeTime)
+        {
+            DestroySwag();
+        }
+
+    }
+
+    //初始化bags的位置
+    public void InitPos()
+    {
+        for (int i = 0; i < _Bags.Length; i++)
+        {
+            Vector3 pos = new Vector3(-(_Bags.Length - 1) * _OffsetX + i * 2 * _OffsetX,
+                                      _OffsetY,
+                                      0);
+            _Bags[i].GetComponent<RectTransform>().anchoredPosition = pos;
+        }
     }
 
     //bags向下移动，盖住niddle，最中间那个bags盖住niddle
@@ -176,6 +184,7 @@ public class MagicNiddle : MonoBehaviour
                 if(index1 == _Bags.Length / 2)
                 {
                     _Niddles[GameSelectNiddle._NiddleNum].GetComponent<RectTransform>().anchoredPosition = pos;
+                    //_GameSelectNiddleManager.niddleIndex = index2;
                 }
             }
             if (_Bags[index2].GetComponent<RectTransform>().anchoredPosition.x != endPos2.x)
@@ -187,6 +196,7 @@ public class MagicNiddle : MonoBehaviour
                 if (index2 == _Bags.Length / 2)
                 {
                     _Niddles[GameSelectNiddle._NiddleNum].GetComponent<RectTransform>().anchoredPosition = pos;
+                    //_GameSelectNiddleManager.niddleIndex = index1;
                 }
             }
 
@@ -203,8 +213,9 @@ public class MagicNiddle : MonoBehaviour
         _BagsMoving = false;
         _IsBagsCanSwag = true;
 
-        yield break;
         Debug.Log("SwagBags协程执行到末尾了");
+        yield break;
+        
     }
 
     //销毁向下移动协程
@@ -227,7 +238,7 @@ public class MagicNiddle : MonoBehaviour
             StopCoroutine(_CoroutineSwag);
             _CoroutineSwag = null;
             _BagsMoving = false;
-            //_IsBagsCanSwag = false;
+            _IsBagsCanSwag = false;
         }
     }
 

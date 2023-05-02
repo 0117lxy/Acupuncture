@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 53686476}
   - component: {fileID: 53686478}
   - component: {fileID: 53686479}
+  - component: {fileID: 53686480}
   m_Layer: 5
   m_Name: Name1
   m_TagString: Untagged
@@ -221,7 +222,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53686474}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9750666205a20b4f993ef5b5a2ef3a2, type: 3}
   m_Name: 
@@ -231,6 +232,27 @@ MonoBehaviour:
   _EndColor: {r: 0.7019608, g: 0.68235296, b: 0.68235296, a: 0.9019608}
   _Image: {fileID: 0}
   _Precision: 0.0001
+--- !u!114 &53686480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53686474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5fb1058825a2046b330c87f4b07b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowTex: {fileID: 0}
+  tintCol: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+  speed: 5
+  tiling: {x: 1, y: 1}
+  amScale: 0.05
+  width: 0.7
+  power: 1
+  LargeWidth: 0.004
+  LittleWidth: 0.002
 --- !u!1 &92732691
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +303,7 @@ GameObject:
   - component: {fileID: 151332027}
   - component: {fileID: 151332029}
   - component: {fileID: 151332030}
+  - component: {fileID: 151332031}
   m_Layer: 5
   m_Name: Name2
   m_TagString: Untagged
@@ -376,6 +399,27 @@ MonoBehaviour:
   _EndColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   _Image: {fileID: 0}
   _Precision: 0.05
+--- !u!114 &151332031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151332025}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5fb1058825a2046b330c87f4b07b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowTex: {fileID: 0}
+  tintCol: {r: 0.6, g: 0.20000002, b: 0.20000002, a: 0}
+  speed: 5
+  tiling: {x: 1, y: 1}
+  amScale: 0.05
+  width: 0.7
+  power: 1
+  LargeWidth: 0.004
+  LittleWidth: 0.002
 --- !u!1 &241004083
 GameObject:
   m_ObjectHideFlags: 0

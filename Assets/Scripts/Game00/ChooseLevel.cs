@@ -15,14 +15,14 @@ public class ChooseLevel : MonoBehaviour
 
     public class _LevelGroup
     {
-        public string _NextSccene;
+        public string _NextScene;
         public Button _LevelsBtn;
 
         public void Register(Action<string> chooseEvent)
         {
             _LevelsBtn.onClick.AddListener(() =>
             {
-                chooseEvent(_NextSccene);
+                chooseEvent(_NextScene);
             });
         }
     }
@@ -57,7 +57,7 @@ public class ChooseLevel : MonoBehaviour
         for(int i=0; i < _LevelNum; i++)
         {
             var level = new _LevelGroup();
-            level._NextSccene = _LevelsName[i];
+            level._NextScene = _LevelsName[i];
             level._LevelsBtn = _LevelsBtn[i];
             _LevelGroups.Add(level);
         }
