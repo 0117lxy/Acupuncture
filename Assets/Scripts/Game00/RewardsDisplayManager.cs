@@ -18,13 +18,13 @@ public class RewardsDisplayManager : MonoBehaviour
     public Sprite[] _RewardImage;//设计的奖励的图片
     public Sprite _InitialRewardImage;//最初的奖励图片
     public GameObject _RewardsDisplayPanel;
-    public Button _RewardsDisplayButton;//奖励展览界面的close button
+    public Button _RewardsDisplayClose;//奖励展览界面的close button
     
 
     public GameObject _RewardDetailsPanel;//奖励细节面板
     public Image _RewardDetailsImage;
     public Text _RewardDetailsText;
-    public Button _RewardDetailsClose;
+    public Button _RewardDetailsClose;//关闭奖励细节面板的button
 
     public class _RewardGroup
     {
@@ -52,13 +52,14 @@ public class RewardsDisplayManager : MonoBehaviour
     private void Start()
     {
         //这是总的奖励的个数，后面要更改
-        Reward._IsHaveReward = new bool[9];
+        Reward._IsHaveReward = new bool[_RewardButtons.Length];
+        
         for (int i = 0; i < Reward._IsHaveReward.Length; i++)
         {
             Reward._IsHaveReward[i] = false;
         }
 
-        
+        //_RewardGroups = new List<_RewardGroup>(_RewardButtons.Length);
 
         //每次打开奖励陈列都进行一次初始化
         _OpenRewardsDisplayPanelButton.onClick.AddListener(delegate ()
@@ -76,6 +77,7 @@ public class RewardsDisplayManager : MonoBehaviour
             }
         });
 
+        //关闭奖励细节面板的button的事件
         _RewardDetailsClose.onClick.AddListener(delegate ()
         {
             if(_RewardDetailsPanel.activeSelf == true)
@@ -84,7 +86,8 @@ public class RewardsDisplayManager : MonoBehaviour
             }
         });
 
-        _RewardsDisplayButton.onClick.AddListener(delegate ()
+        //关闭奖励陈列面板的button的事件
+        _RewardsDisplayClose.onClick.AddListener(delegate ()
         {
             if (_RewardsDisplayPanel.activeSelf == true)
             {
@@ -100,7 +103,7 @@ public class RewardsDisplayManager : MonoBehaviour
 
     public void InitRewardGroup()
     {
-        for (int i = 0; i < _RewardsNum; i++)
+        for (int i = 0; i < _RewardButtons.Length; i++)
         {
 
             if (Reward._IsHaveReward[i] == true)
@@ -109,11 +112,13 @@ public class RewardsDisplayManager : MonoBehaviour
 
                 int rewardIndex = i; // 必须用一个中间变量保存i的值
                 var reward = new _RewardGroup();
-                reward.Index = rewardIndex;
-                reward.Image = _RewardButtons[i].GetComponent<Image>().sprite;
-                reward.Info = _RewardDetails[i];
-                reward.RewardButton = _RewardButtons[i];
-                _RewardGroups.Add(reward);
+                //reward.Index = rewardIndex;
+                reward.Index = _RewardGroups.Count;
+                reward.Image = _RewardButtons[rewardIndex].GetComponent<Image>().sprite;
+                reward.Info = _RewardDetails[rewardIndex];
+                reward.RewardButton = _RewardButtons[rewardIndex];
+                _RewardGroups.Add(reward);   
+                //_RewardGroups[rewardIndex] = reward;
             }
             else
             {
@@ -121,11 +126,19 @@ public class RewardsDisplayManager : MonoBehaviour
             }              
         }
 
+        //似乎不浪费资源，因为有的奖励已经有了，就得换图片了。 date:23/5/3
         //不过这样写是不是浪费资源了，因为有时候它并不需要更新 date:23/5/2
         //这里所有的都要换图片，简写一下
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < _RewardButtons.Length; i++)
         {
-            _RewardButtons[i].GetComponent<Image>().sprite = _InitialRewardImage;
+            if(Reward._IsHaveReward[i] == true)
+            {
+                _RewardButtons[i].GetComponent<Image>().sprite = _RewardImage[i];
+            }
+            else
+            {
+                _RewardButtons[i].GetComponent<Image>().sprite = _InitialRewardImage;
+            }      
         }
     }
 

@@ -15,10 +15,19 @@ public class Game02WinOrLose : MonoBehaviour
     public GameObject _ClickTip;//点击提示组件，用于获取_ClickAll
     private string _BackScene;
 
+    public GameObject _RewardPanel;//奖励面板
+    public Button _RewardPanelButton;
+
     // Start is called before the first frame update
     void Start()
     {
         _BackScene = "Game00";
+
+        _RewardPanelButton.onClick.AddListener(delegate ()
+        {
+            Globe._NextSceneName = _BackScene;
+            SceneManager.LoadScene("Loading");
+        });
 
         _WinBackButton.onClick.AddListener(delegate ()
         {
@@ -46,7 +55,8 @@ public class Game02WinOrLose : MonoBehaviour
     {
         if (_ClickTip.GetComponent<TipForAcu>()._ClickAll == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0)
         {
-            _WinPanel.SetActive(true);
+            //_WinPanel.SetActive(true);
+            _RewardPanel.SetActive(true);
         }
     }
 

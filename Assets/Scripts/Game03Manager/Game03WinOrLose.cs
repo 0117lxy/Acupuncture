@@ -16,11 +16,22 @@ public class Game03WinOrLose : MonoBehaviour
     private string _WinBackScene;//胜利返回界面
     private string _LoseBackScene;//失败返回界面
 
+    public GameObject _RewardPanel;//奖励面板
+    public Button _RewardPanelButton;
+    private string _RewardBackScene;//失败返回界面
+
     // Start is called before the first frame update
     void Start()
     {
-        _WinBackScene = "Game04";
 
+        _RewardBackScene = "Game04";
+        _RewardPanelButton.onClick.AddListener(delegate ()
+        {
+            Globe._NextSceneName = _RewardBackScene;
+            SceneManager.LoadScene("Loading");
+        });
+
+        _WinBackScene = "Game04";
         _WinBackButton.onClick.AddListener(delegate ()
         {
             Globe._NextSceneName = _WinBackScene;
@@ -48,7 +59,8 @@ public class Game03WinOrLose : MonoBehaviour
     {
         if (_ClickTip.GetComponent<TipForAcuDescirption>()._ClickAll == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0)
         {
-            _WinPanel.SetActive(true);
+            //_WinPanel.SetActive(true);
+            _RewardPanel.SetActive(true);
         }
     }
 

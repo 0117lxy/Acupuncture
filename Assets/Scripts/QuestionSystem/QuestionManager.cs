@@ -12,6 +12,10 @@ public class GameQuestion
 public class QuestionManager : MonoBehaviour
 {
     Questions _Questions;//问题
+    public Button _QuestionButton;//界面上打开问题面板的Button
+
+    public GameObject _QuestionRolePanel;//引导进行答题的人的面板
+    public Button _QuestionRoleButton;//引导进行答题的人的面板的Button
 
     public GameObject _QuestionPanel;//问题面板
     public GameObject _QuestionObj;//问题组件
@@ -40,6 +44,29 @@ public class QuestionManager : MonoBehaviour
         _Questions = GetComponent<Questions>();
 
         GameQuestion._QuestionNum = 0;
+
+        //点击打开问题面板
+        _QuestionButton.onClick.AddListener(delegate ()
+        {
+            if (_QuestionRolePanel.activeSelf == false)
+            {
+                _QuestionRolePanel.SetActive(true);
+            }
+        });
+
+        //点击打开问题系统
+        _QuestionRoleButton.onClick.AddListener(delegate ()
+        {
+            if (_QuestionRolePanel.activeSelf == true)
+            {
+                _QuestionRolePanel.SetActive(false);
+            }
+
+            if (_QuestionPanel.activeSelf == false)
+            {
+                _QuestionPanel.SetActive(true);
+            }
+        });
 
         //问题面板上确定答案的button点击后提交答案
         _AnswerButton.onClick.AddListener(delegate ()
@@ -139,6 +166,11 @@ public class QuestionManager : MonoBehaviour
             {
                 _RewardPanel.SetActive(true);
             }
+            if (_RightAnswerText.activeSelf == false)
+            {
+                _RightAnswerText.GetComponent<Text>().text = "正确答案：" + $"{(char)('A' + _Questions.questions[currentQuestionIndex].correctAnswerIndex)}";
+                _RightAnswerText.SetActive(true);
+            }
         }
 
         else if (selectedAnswerIndex == _Questions.questions[currentQuestionIndex].correctAnswerIndex)
@@ -153,6 +185,9 @@ public class QuestionManager : MonoBehaviour
                 _RightAnswerText.GetComponent<Text>().text = "正确答案：" + $"{(char)('A' + _Questions.questions[currentQuestionIndex].correctAnswerIndex)}";
                 _RightAnswerText.SetActive(true);
             }
+
+            //设置奖励陈列馆中对应位置的奖励为true，表示已经获得该奖励
+            Reward._IsHaveReward[1] = true;
         }
         else
         {
