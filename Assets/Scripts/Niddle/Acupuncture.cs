@@ -9,7 +9,8 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     private float _OverTime = 0f;//悬停时间
     private bool _EnterAnchor = false;//是否悬停在穴位上
-    private Button _AimAnchor;//悬停的Button
+    //private Button _AimAnchor;//悬停的Button
+    private GameObject _AimAnchor;//悬停的Button
 
     ClickToInstantiate _ClickToInstantiate;
     
@@ -53,18 +54,22 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Bring,
         Focus,
+        FocusOver,
         Strengthen,
+        StrengthenOver,
         Niddling,
         Nonesense
     }
 
-    public AcupunctureState _State = AcupunctureState.Nonesense;
+    public AcupunctureState _State;
 
-    // Start is called before the first frame update
     void Start()
     {
         _ClickToInstantiate = GameObject.Find("NiddleType").GetComponent<ClickToInstantiate>();
+
         _Canvas = GameObject.Find("Canvas");
+
+        _State = AcupunctureState.Nonesense;
 
         /*_TipNum = 4;
         _TipNum++;//多设置一个最后一位，用于把所有的提示信息都隐藏
@@ -75,40 +80,37 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }*/
     }
 
-    // Update is called once per frame
     void Update()
     {
+
+        ChangeAcupunctureState();
+
         OverTimeUp(_EnterAnchor);
-        
-    }
-
-    void LateUpdate()
-    {
         AimAnchor(_EnterAnchor);
+        ToAcupuncture();
     }
 
-    void FixedUpdate()
+    public void ChangeAcupunctureState()
     {
-        ToAcupuncture();
+        if(_ClickToInstantiate._IsSpawn == true && _State == AcupunctureState.Nonesense)
+        {
+            _State = AcupunctureState.Bring;
+        }
     }
 
     //鼠标指针悬在正确的button上，记录一下最初的旋转和位置，用于鼠标移出button后针的参数的恢复
     //设置进入button的bool值为true，用于AimAnchor()函数是否进行针的对准以及下针的条件的判断
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _AimAnchor = gameObject.GetComponent<Button>();
-        if(_AimAnchor != null && _AimAnchor.tag == "Anchor")
-        {
-            //_EnterAnchor = true;
-            if (_ClickToInstantiate._IsSpawn == true)
-            {
-                _State = AcupunctureState.Bring;
-
+        //_AimAnchor = gameObject.GetComponent<Button>();
+        _AimAnchor = this.gameObject;
+        if(_AimAnchor != null && _AimAnchor.tag == "Anchor" && _State == AcupunctureState.Bring)
+        {        
+                //_State = AcupunctureState.Bring;
                 //_NiddleHeight = _ClickToInstantiate._NiddleHeight;
                 _EnterAnchor = true;
                 _InitialNiddleRotation = _ClickToInstantiate._NiddleRotation;
                 _InitialNiddlePos = _ClickToInstantiate._NiddleObject.transform.position;
-            }
         }
     }
 
@@ -117,7 +119,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         AimAnchorExit(_EnterAnchor);
         _OverTime = 0f;
-        _EnterAnchor = false;
+        //_EnterAnchor = false;
     }
 
     //当鼠标点击时，初始化针蓄力后移时间，记录点击的bool值为true，设置正在下针，记录初始位置
@@ -168,7 +170,11 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             //对准
             if (_OverTime < 1.0f)
             {
-                _State = AcupunctureState.Focus;
+                if(_State == AcupunctureState.Bring)
+                {
+                    _State = AcupunctureState.Focus;
+                }
+                
 
                 _ClickToInstantiate._NiddleObject.transform.rotation = Quaternion.Slerp(_ClickToInstantiate._NiddleObject.transform.rotation, Quaternion.Euler(_LastNiddleRotation), _RotateSpeed * Time.deltaTime);
             }
@@ -183,11 +189,22 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     _IsBuildBezier = true;
                 }
             }
+            else
+            {
+                if(_State == AcupunctureState.Focus)
+                {
+                    _State = AcupunctureState.FocusOver;
+                }
+                
+            }
 
             //鼠标点击时，沿针的y轴正向上移
             if(_OverTime > 1f && _IsButtonDown == true && _MoveTime < 1f)
             {
-                _State = AcupunctureState.Strengthen;
+                if(_State == AcupunctureState.FocusOver)
+                {
+                    _State = AcupunctureState.Strengthen;
+                }     
 
                 _MoveTime += Time.deltaTime;
                 Vector3 moveDir = _ClickToInstantiate._NiddleObject.transform.up;
@@ -201,15 +218,21 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             else if(_OverTime > 1f && _IsButtonDown == true && _MoveTime > 1f)
             {
                 //_IsTip[3] = true;
+                if(_State == AcupunctureState.Strengthen)
+                {
+                    _State = AcupunctureState.StrengthenOver;
+                }
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     //_IsTip[4] = true;
 
                     _IsAcupuncture = true;
-
-                    _State = AcupunctureState.Niddling;
-
+                    if(_State == AcupunctureState.StrengthenOver)
+                    {
+                        _State = AcupunctureState.Niddling;
+                    }
+                    
                     if (_IsBuildBezier == true)
                     {
                         _BezierObject.GetComponent<BezierMove>()._TimeToMove = false;
@@ -230,6 +253,8 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 _ClickToInstantiate._NiddleObject.transform.rotation = _InitialNiddleRotation;
             } 
             _ClickToInstantiate._IsAcupuncture = false;
+            this._EnterAnchor = false;
+            _State = AcupunctureState.Bring;
             DestroyBezierObject();
         } 
     }
@@ -266,6 +291,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             Debug.Log("针位置：" + niddlePos);
             Vector3 dir = aimAnchorPos - niddlePos;
             Debug.Log("方向：" + dir);
+            Debug.DrawLine(niddlePos, aimAnchorPos);
             _ClickToInstantiate._NiddleObject.transform.position += dir * _AcupunctureSpeed * Time.deltaTime;
             Debug.Log("针当前的位置：" + _ClickToInstantiate._NiddleObject.transform.position);
             
@@ -277,6 +303,10 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             Debug.Log("下针结束：" + _AcupunctureTime);
 
             //销毁针，重置下针参数，以便下次下针操作
+            if(_DestroyCoroutine != null)
+            {
+                _DestroyCoroutine = null;
+            }
             _DestroyCoroutine = StartCoroutine(WaitForTime(1f, () =>
             {
                 _State = AcupunctureState.Nonesense;
@@ -298,6 +328,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             Destroy(_ClickToInstantiate._NiddleObject);
             _ClickToInstantiate._IsSpawn = false;
             _ClickToInstantiate._NiddleObject = null;
+            _State = AcupunctureState.Nonesense;
         }
     }
 

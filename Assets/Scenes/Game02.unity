@@ -4131,7 +4131,7 @@ MonoBehaviour:
   _BezierObject: {fileID: 0}
   _BezierPos: {x: 0, y: 2, z: -4}
   _BezierRotation: {x: 0, y: 0, z: 0, w: 0}
-  _Canvas: {fileID: 0}
+  _Canvas: {fileID: 641473976}
   _AcupunctureSpeed: 1
   _IsAcupuncture: 0
   _AcupunctureTotalTime: 0.5
