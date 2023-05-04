@@ -61,6 +61,7 @@ public class Game03WinOrLose : MonoBehaviour
         {
             //_WinPanel.SetActive(true);
             _RewardPanel.SetActive(true);
+            Reward._IsHaveReward[3] = true;
         }
     }
 

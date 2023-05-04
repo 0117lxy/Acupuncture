@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MagicNiddle: {fileID: 53724845}
   _HelpPanel: {fileID: 251710517}
-  _HelpButton: {fileID: 1095980459}
+  _HelpButton: {fileID: 973402226}
   _TruePanel: {fileID: 1695126580}
   _TrueButton: {fileID: 612972617}
   _WinPanel: {fileID: 839450984}
@@ -984,6 +984,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 46727918}
     m_Modifications:
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_text
+      value: "<rotate=90>\u6839\u636E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_fontSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c6275504d8ef1ad45a60dd790a4d093b, type: 2}
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022211820282777599, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5559603770798011894, guid: c6275504d8ef1ad45a60dd790a4d093b, type: 2}
     - target: {fileID: 3023198036131371451, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1387,6 +1411,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1996671524999421041, guid: b49d34b9868f0ae48b6450190d41d972, type: 3}
   m_PrefabInstance: {fileID: 957252349}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &973402226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1887791374459473374, guid: 876d27bda4ad51348a97760f3597dc70, type: 3}
+  m_PrefabInstance: {fileID: 809513324}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1002895722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,9 +2685,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 46727918}
     m_Modifications:
+    - target: {fileID: 3143191618545168616, guid: dc26d43d855df3845b33574c0434706f, type: 3}
+      propertyPath: m_Text
+      value: "\u4E0B\u4E00\u7EC4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143191618545168616, guid: dc26d43d855df3845b33574c0434706f, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143191618545168616, guid: dc26d43d855df3845b33574c0434706f, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 42
+      objectReference: {fileID: 0}
     - target: {fileID: 3143191619878529474, guid: dc26d43d855df3845b33574c0434706f, type: 3}
       propertyPath: m_Name
       value: TruePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143191619878529474, guid: dc26d43d855df3845b33574c0434706f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3143191619878529475, guid: dc26d43d855df3845b33574c0434706f, type: 3}
       propertyPath: m_Pivot.x

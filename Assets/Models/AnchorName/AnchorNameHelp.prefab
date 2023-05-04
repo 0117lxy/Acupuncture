@@ -66,9 +66,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 24
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -152,7 +152,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -346, y: 152}
-  m_SizeDelta: {x: 150, y: 50}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1181220907110124531
 CanvasRenderer:
@@ -183,9 +183,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 36
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -341,9 +341,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 24
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -420,9 +420,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 24
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40

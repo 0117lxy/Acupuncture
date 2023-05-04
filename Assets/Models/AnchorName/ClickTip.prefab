@@ -67,9 +67,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f018e270bfbc5864493f2a3f0410a0b0, type: 3}
+    m_Font: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     m_FontSize: 72
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 72
@@ -94,10 +94,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickTipObject: {fileID: 3195475354018248511}
   clickTipNum: 3
-  isClicked: 
   clickQueue: 
   clickNum: 0
-  _ClickAll: 0
-  _AnchorNameHelp: {fileID: 0}
-  _CountDown: {fileID: 0}
+  _ClickAll: 
+  _ClickAnchor: []
+  _AnchorNameHelp:
+  - {fileID: 0}
+  _CountDown:
+  - {fileID: 0}
   _CountDownTime: 3

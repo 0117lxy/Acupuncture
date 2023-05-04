@@ -14,6 +14,7 @@ public class RewardsDisplayManager : MonoBehaviour
 
     public int _RewardsNum;//奖励的数量
     public Button[] _RewardButtons;//奖励
+    public string[] _RewardNames;
     public string[] _RewardDetails;//奖励的细节信息
     public Sprite[] _RewardImage;//设计的奖励的图片
     public Sprite _InitialRewardImage;//最初的奖励图片
@@ -23,6 +24,7 @@ public class RewardsDisplayManager : MonoBehaviour
 
     public GameObject _RewardDetailsPanel;//奖励细节面板
     public Image _RewardDetailsImage;
+    public Text _RewardDetailsNameText;
     public Text _RewardDetailsText;
     public Button _RewardDetailsClose;//关闭奖励细节面板的button
 
@@ -30,6 +32,7 @@ public class RewardsDisplayManager : MonoBehaviour
     {
         public int Index;
         public Sprite Image;// 奖励图片
+        public string Name;//奖励名字
         public string Info;// 奖励信息
         public Button RewardButton;//奖励Button
 
@@ -51,13 +54,13 @@ public class RewardsDisplayManager : MonoBehaviour
 
     private void Start()
     {
-        //这是总的奖励的个数，后面要更改
+        /*//这是总的奖励的个数，后面要更改
         Reward._IsHaveReward = new bool[_RewardButtons.Length];
         
         for (int i = 0; i < Reward._IsHaveReward.Length; i++)
         {
             Reward._IsHaveReward[i] = false;
-        }
+        }*/
 
         //_RewardGroups = new List<_RewardGroup>(_RewardButtons.Length);
 
@@ -114,6 +117,7 @@ public class RewardsDisplayManager : MonoBehaviour
                 var reward = new _RewardGroup();
                 //reward.Index = rewardIndex;
                 reward.Index = _RewardGroups.Count;
+                reward.Name = _RewardNames[rewardIndex];
                 reward.Image = _RewardButtons[rewardIndex].GetComponent<Image>().sprite;
                 reward.Info = _RewardDetails[rewardIndex];
                 reward.RewardButton = _RewardButtons[rewardIndex];
@@ -149,6 +153,7 @@ public class RewardsDisplayManager : MonoBehaviour
 
         // 设置奖励图片和信息文本
         _RewardDetailsImage.sprite = _RewardGroups[rewardIndex].Image;
+        _RewardDetailsNameText.text = "——○" + _RewardGroups[rewardIndex].Name + "○——";
         _RewardDetailsText.text = _RewardGroups[rewardIndex].Info;
 
     }

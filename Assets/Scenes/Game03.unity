@@ -598,8 +598,12 @@ PrefabInstance:
       value: "\u7A74\u4F4D"
       objectReference: {fileID: 0}
     - target: {fileID: 3195475354018248505, guid: 9b9a7cf66e3e1724b97d4bab954381a8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
+    - target: {fileID: 3195475354018248505, guid: 9b9a7cf66e3e1724b97d4bab954381a8, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 48
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 3195475354018248507, guid: 9b9a7cf66e3e1724b97d4bab954381a8, type: 3}
       propertyPath: clickNum
@@ -1664,8 +1668,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <rotate=90>
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6814c807ab934f542a56e30d7524ad45, type: 2}
-  m_sharedMaterial: {fileID: -4722521502800039481, guid: 6814c807ab934f542a56e30d7524ad45, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c6275504d8ef1ad45a60dd790a4d093b, type: 2}
+  m_sharedMaterial: {fileID: -5559603770798011894, guid: c6275504d8ef1ad45a60dd790a4d093b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1689,8 +1693,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 54
+  m_fontSizeBase: 54
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2929,6 +2933,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 104
       objectReference: {fileID: 0}
+    - target: {fileID: 1181220907721991665, guid: f59d88b0dd30cd341ab764aae0489bb6, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 60118e4a211b0ee4eb6ed71f2ceb5170, type: 3}
     - target: {fileID: 1181220907721991665, guid: f59d88b0dd30cd341ab764aae0489bb6, type: 3}
       propertyPath: m_FontData.m_MaxSize
       value: 73

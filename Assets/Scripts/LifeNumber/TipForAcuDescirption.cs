@@ -57,14 +57,14 @@ public class TipForAcuDescirption : MonoBehaviour
     {
         if (_CountDownTime == 0)
         {
-            if (!isClicked[clickQueue[clickNum]])
+            if (clickNum <= clickTipNum - 1 && !isClicked[clickQueue[clickNum]])
             {
                 ShowClickTip(clickQueue[clickNum]);
             }
             else
             {
                 //clickNum最大到clickTipNum-1，因为下标是从0开始的
-                if (clickNum != clickTipNum - 1)
+                if (clickNum <= clickTipNum - 1)
                 {
                     clickNum++;
                 }

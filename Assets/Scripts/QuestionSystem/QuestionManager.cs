@@ -162,15 +162,29 @@ public class QuestionManager : MonoBehaviour
         //如果已经回答完所有的问题
         if(currentQuestionIndex  == _Questions.questions.Length - 1)
         {
-            if(_RewardPanel.activeSelf == false)
+            if(selectedAnswerIndex == _Questions.questions[currentQuestionIndex].correctAnswerIndex)
             {
-                _RewardPanel.SetActive(true);
+                if (_RewardPanel.activeSelf == false)
+                {
+                    _RewardPanel.SetActive(true);
+                }
+                if (_RightAnswerText.activeSelf == false)
+                {
+                    _RightAnswerText.GetComponent<Text>().text = "正确答案：" + $"{(char)('A' + _Questions.questions[currentQuestionIndex].correctAnswerIndex)}";
+                    _RightAnswerText.SetActive(true);
+                }
+                //设置奖励陈列馆中对应位置的奖励为true，表示已经获得该奖励
+                Reward._IsHaveReward[1] = true;
             }
-            if (_RightAnswerText.activeSelf == false)
+            else if(selectedAnswerIndex != _Questions.questions[currentQuestionIndex].correctAnswerIndex)
             {
-                _RightAnswerText.GetComponent<Text>().text = "正确答案：" + $"{(char)('A' + _Questions.questions[currentQuestionIndex].correctAnswerIndex)}";
-                _RightAnswerText.SetActive(true);
+                // 回答错误，显示惩罚面板
+                if (_WrongPanel.activeSelf == false)
+                {
+                    _WrongPanel.SetActive(true);
+                }
             }
+            
         }
 
         else if (selectedAnswerIndex == _Questions.questions[currentQuestionIndex].correctAnswerIndex)
@@ -186,8 +200,7 @@ public class QuestionManager : MonoBehaviour
                 _RightAnswerText.SetActive(true);
             }
 
-            //设置奖励陈列馆中对应位置的奖励为true，表示已经获得该奖励
-            Reward._IsHaveReward[1] = true;
+            
         }
         else
         {

@@ -194,7 +194,7 @@ public class ClickToAcuDesription : MonoBehaviour
                         lifeNumberChange.theHeartNumber--;
                     }
 
-                    //DestroyAcupuncture();
+                    DestroyAcupuncture();
                 }
                 else
                 {
@@ -203,8 +203,8 @@ public class ClickToAcuDesription : MonoBehaviour
                         _ButtonGroups[_Index]._Anchor.gameObject.SetActive(false);
                         tipForAcuDescirption.isClicked[tipForAcuDescirption.clickQueue[tipForAcuDescirption.clickNum]] = true;
                         RectTransform rectTransform = _ButtonGroups[_Index]._Anchor.GetComponent<RectTransform>();
-
                         _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[_Index]);
+                        DestroyAcupuncture();
                     }));
                 }
                 _IsAcupunctureRight = false;
@@ -214,6 +214,7 @@ public class ClickToAcuDesription : MonoBehaviour
 
     void DestroyAcupuncture()
     {
+        _Acupuncture._IsAcupuncture = false;
         _Acupuncture.DestroyBezierObject();
         _Acupuncture.DestroyNiddle();
         _Acupuncture = null;

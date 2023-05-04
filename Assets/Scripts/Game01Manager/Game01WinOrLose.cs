@@ -14,7 +14,7 @@ public class Game01WinOrLose : MonoBehaviour
     public string _BackScene;
 
     public GameObject _NextGroupPanel;//奖励面板
-    public Button __NextGroupPanelButton;//奖励界面继续游戏的按钮
+    public Button _NextGroupPanelButton;//奖励界面继续游戏的按钮
 
     public GameObject[] _AnchorNameHelp;
 
@@ -47,9 +47,9 @@ public class Game01WinOrLose : MonoBehaviour
             SceneManager.LoadScene("Loading");
         });
 
-        __NextGroupPanelButton.onClick.AddListener(delegate ()
+        _NextGroupPanelButton.onClick.AddListener(delegate ()
         {
-            _RewardPanel.SetActive(false);
+            _NextGroupPanel.SetActive(false);
             _Anchors[Game01._NowLevel].SetActive(true);
             _TipObject.GetComponent<Text>().enabled = true;
             _AnchorNameHelp[Game01._NowLevel].SetActive(true);
@@ -73,6 +73,7 @@ public class Game01WinOrLose : MonoBehaviour
         {
             //_WinPanel.SetActive(true);
             _RewardPanel.SetActive(true);
+            Reward._IsHaveReward[0] = true;
         }
     }
 
@@ -93,7 +94,7 @@ public class Game01WinOrLose : MonoBehaviour
             Game01._NowLevel++;
             _TipObject.GetComponent<Text>().enabled = false;
             _ClickTip.GetComponent<TipForClick>().clickNum = 0;
-            _RewardPanel.SetActive(true);
+            _NextGroupPanel.SetActive(true);
         }
     }
 }
