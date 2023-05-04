@@ -58,6 +58,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Strengthen,
         StrengthenOver,
         Niddling,
+        NiddlingOver,
         Nonesense
     }
 
@@ -88,6 +89,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         OverTimeUp(_EnterAnchor);
         AimAnchor(_EnterAnchor);
         ToAcupuncture();
+        //AfterAcu();
     }
 
     public void ChangeAcupunctureState()
@@ -103,7 +105,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         //_AimAnchor = gameObject.GetComponent<Button>();
-        _AimAnchor = this.gameObject;
+        /*_AimAnchor = this.gameObject;
         if(_AimAnchor != null && _AimAnchor.tag == "Anchor" && _State == AcupunctureState.Bring)
         {        
                 //_State = AcupunctureState.Bring;
@@ -111,14 +113,33 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 _EnterAnchor = true;
                 _InitialNiddleRotation = _ClickToInstantiate._NiddleRotation;
                 _InitialNiddlePos = _ClickToInstantiate._NiddleObject.transform.position;
+        }*/
+
+        if(gameObject.CompareTag("Anchor") && _State == AcupunctureState.Bring)
+        {
+            _AimAnchor = this.gameObject;
+            _EnterAnchor = true;
+            if(_ClickToInstantiate._IsSpawn == true)
+            {
+                _InitialNiddleRotation = _ClickToInstantiate._NiddleRotation;
+                _InitialNiddlePos = _ClickToInstantiate._NiddleObject.transform.position;
+            }
+            
+
+            Debug.Log("_AimAnchor: " + _AimAnchor);
+            Debug.Log("_State: " + _State);
         }
     }
 
     //鼠标指针移出button就恢复针的初始旋转，把悬浮时间也置零
     public void OnPointerExit(PointerEventData eventData)
     {
-        AimAnchorExit(_EnterAnchor);
-        _OverTime = 0f;
+        if(_State != AcupunctureState.Niddling)
+        {
+            AimAnchorExit(_EnterAnchor);
+            _OverTime = 0f;
+        }
+        
         //_EnterAnchor = false;
     }
 
@@ -137,11 +158,15 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     //当鼠标松开的时候，重置蓄力后移时间，设置点击的bool值为false，重置针的位置，销毁贝塞尔移动物体
     public void OnPointerUp(PointerEventData eventData)
     {
-        _MoveTime = 0f;
-        _IsButtonDown = false;
-        //_ClickToInstantiate._NiddleObject.transform.position = _InitialNiddlePos;
-        DestroyNiddle();
-        DestroyBezierObject();
+
+        if (_State != AcupunctureState.Niddling)
+        {
+            _MoveTime = 0f;
+            _IsButtonDown = false;
+            //_ClickToInstantiate._NiddleObject.transform.position = _InitialNiddlePos;
+            DestroyNiddle();
+            DestroyBezierObject();
+        }
 
     }
 
@@ -271,8 +296,7 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 StopCoroutine(_DestroyCoroutine);
             }
-        }
-            
+        }           
     }
 
     //当指针对准之后就可以根据贝塞尔移动物体的指针的位置进行下针，根据指针的位置判断下针是否正确
@@ -281,19 +305,19 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if(_IsAcupuncture == true && _AcupunctureTime < _AcupunctureTotalTime)
         {
             _AcupunctureTime += Time.deltaTime;
-            Debug.Log("正在下针：" + _AcupunctureTime);
+            //Debug.Log("正在下针：" + _AcupunctureTime);
 
             //Vector3 aimAnchorPos = Camera.main.ScreenToWorldPoint(_AimAnchor.transform.position);
             Vector3 aimAnchorPos = _AimAnchor.transform.position;
 
-            Debug.Log("穴位位置：" + aimAnchorPos);
+            //Debug.Log("穴位位置：" + aimAnchorPos);
             Vector3 niddlePos = _ClickToInstantiate._NiddleObject.transform.position;
-            Debug.Log("针位置：" + niddlePos);
+            //Debug.Log("针位置：" + niddlePos);
             Vector3 dir = aimAnchorPos - niddlePos;
-            Debug.Log("方向：" + dir);
-            Debug.DrawLine(niddlePos, aimAnchorPos);
+            //Debug.Log("方向：" + dir);
+            //Debug.DrawLine(niddlePos, aimAnchorPos, Color.red);
             _ClickToInstantiate._NiddleObject.transform.position += dir * _AcupunctureSpeed * Time.deltaTime;
-            Debug.Log("针当前的位置：" + _ClickToInstantiate._NiddleObject.transform.position);
+            //Debug.Log("针当前的位置：" + _ClickToInstantiate._NiddleObject.transform.position);
             
             //_ClickToInstantiate._NiddleObject.transform.position = Vector3.Lerp(_ClickToInstantiate._NiddleObject.transform.position, new Vector3(aimAnchorPos.x, aimAnchorPos.y, 0), Time.deltaTime * _AcupunctureSpeed);
         }
@@ -301,22 +325,29 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             _IsAcupuncture = false;
             Debug.Log("下针结束：" + _AcupunctureTime);
-
+            
             //销毁针，重置下针参数，以便下次下针操作
-            if(_DestroyCoroutine != null)
-            {
-                _DestroyCoroutine = null;
-            }
             _DestroyCoroutine = StartCoroutine(WaitForTime(1f, () =>
             {
-                _State = AcupunctureState.Nonesense;
+                _State = AcupunctureState.NiddlingOver;
                 _AcupunctureTime = 0f;
                 _OverTime = 0f;
                 _MoveTime = 0f;
-                DestroyNiddle();
-                DestroyBezierObject();
+                
             }));
             
+
+        }
+    }
+
+    //下针结束后销毁针
+    public void AfterAcu()
+    {
+        if(_State == AcupunctureState.NiddlingOver)
+        {
+            DestroyNiddle();
+            DestroyBezierObject();
+            _State = AcupunctureState.Nonesense;
         }
     }
 
@@ -325,9 +356,12 @@ public class Acupuncture : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if(_ClickToInstantiate._NiddleObject != null)
         {
+            Debug.Log("DestroyNiddle called for: " + _ClickToInstantiate._NiddleObject.name);
+
             Destroy(_ClickToInstantiate._NiddleObject);
             _ClickToInstantiate._IsSpawn = false;
             _ClickToInstantiate._NiddleObject = null;
+            _ClickToInstantiate._IsAcupuncture = false;
             _State = AcupunctureState.Nonesense;
         }
     }

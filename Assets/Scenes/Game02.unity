@@ -2433,20 +2433,7 @@ MonoBehaviour:
   _AcupunctureSpeed: 1
   _IsAcupuncture: 0
   _AcupunctureTotalTime: 0.5
-  _State: 4
---- !u!114 &707470076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707470070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0723b59f17d4e499787269385a3fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Tag: 
+  _State: 6
 --- !u!1 &751244995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4992771742317979385, guid: fdf378218dede9840ab32954c033e297, type: 3}
@@ -2881,19 +2868,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5495097257447357483, guid: ba3126b9c87e75748b5b8abf6f15caa9, type: 3}
   m_PrefabInstance: {fileID: 249632626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1219898708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219898703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0723b59f17d4e499787269385a3fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Tag: 
 --- !u!114 &1219898709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2918,7 +2892,7 @@ MonoBehaviour:
   _AcupunctureSpeed: 1
   _IsAcupuncture: 0
   _AcupunctureTotalTime: 0.5
-  _State: 4
+  _State: 6
 --- !u!1 &1292012683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4111,6 +4085,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5495097257569351872, guid: ba3126b9c87e75748b5b8abf6f15caa9, type: 3}
   m_PrefabInstance: {fileID: 249632626}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2072536285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072536284}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb84dc15f7bce54696b0b9defb6c965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AimTime: 1
+  _RotateSpeed: 1
+  _LastNiddleRotation: {x: 350, y: 10, z: -49.885}
+  _MoveSpeed: 1
+  _MaxMoveDis: 10
+  _BezierPrefab: {fileID: 8520171140749547160, guid: 9c7398da12b680140a32fe740dc1538e, type: 3}
+  _BezierObject: {fileID: 0}
+  _BezierPos: {x: 0, y: 2, z: -4}
+  _BezierRotation: {x: 0, y: 0, z: 0, w: 0}
+  _Canvas: {fileID: 641473976}
+  _AcupunctureSpeed: 1
+  _IsAcupuncture: 0
+  _AcupunctureTotalTime: 0.5
+  _State: 6
 --- !u!114 &2072536289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4135,20 +4135,7 @@ MonoBehaviour:
   _AcupunctureSpeed: 1
   _IsAcupuncture: 0
   _AcupunctureTotalTime: 0.5
-  _State: 4
---- !u!114 &2072536290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072536284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0723b59f17d4e499787269385a3fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Tag: 
+  _State: 6
 --- !u!1 &2085927924
 GameObject:
   m_ObjectHideFlags: 0

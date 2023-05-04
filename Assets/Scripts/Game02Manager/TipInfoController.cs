@@ -17,6 +17,8 @@ public class TipInfoController : MonoBehaviour
     public GameObject _Anchor1_1;//第一组穴位的第一个穴位，用于新手指引
     Acupuncture _Acupuncture;
 
+    //Acupuncture2 _Acupuncture2;
+
     //开始练习游戏的提示
     public GameObject _BeginTest;
 
@@ -32,6 +34,8 @@ public class TipInfoController : MonoBehaviour
         //_Anchor1_1 = GameObject.Find("Anchor1_1");
         _Acupuncture = _Anchor1_1.GetComponent<Acupuncture>();
 
+        //_Acupuncture2 = _Anchor1_1.GetComponent<Acupuncture2>();    
+
         for (int i = 0; i < _TipCount; i++)
         {
             _Tips[i] = _TipInfo.GetChild(i).gameObject;
@@ -42,6 +46,12 @@ public class TipInfoController : MonoBehaviour
     private void Update()
     {
         ShowTips(_IsShowAllTips);
+
+        if(_Acupuncture != null && _Acupuncture._State == Acupuncture.AcupunctureState.NiddlingOver)
+        {
+            _Acupuncture.DestroyNiddle();
+            _Acupuncture.DestroyBezierObject();
+        }
 
     }
     
@@ -58,7 +68,7 @@ public class TipInfoController : MonoBehaviour
                     _Tips[1].SetActive(true);
                 }
             }
-            if (_Acupuncture._State == Acupuncture.AcupunctureState.Focus)
+            if (_Acupuncture._State == Acupuncture.AcupunctureState.FocusOver)
             {
                 if (_Tips[1].activeSelf == true)
                 {
@@ -66,7 +76,7 @@ public class TipInfoController : MonoBehaviour
                     _Tips[2].SetActive(true);
                 }
             }
-            if (_Acupuncture._State == Acupuncture.AcupunctureState.Strengthen)
+            if (_Acupuncture._State == Acupuncture.AcupunctureState.StrengthenOver)
             {
                 if (_Tips[2].activeSelf == true)
                 {

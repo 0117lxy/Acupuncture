@@ -24,6 +24,7 @@ public class ClickToAcupuncture : MonoBehaviour
 
     //是否下针正确相关变量
     Acupuncture _Acupuncture;
+    Acupuncture2 _Acupuncture2;
     GameObject _BezierObject;
     BezierMove _BezierMove;
     public int _LeftBezierPos;
@@ -74,6 +75,7 @@ public class ClickToAcupuncture : MonoBehaviour
             _ButtonGroups.Add(new ButtonGroup());
             _ButtonGroups[i]._Anchor = anchors1[i];
         }
+
         InitButtons();
 
         lifeNumberChange = GameObject.Find("LifeNumber").GetComponent<LifeNumberChange>();
@@ -99,7 +101,7 @@ public class ClickToAcupuncture : MonoBehaviour
         }*/
 
         //判断是否点击到穴位
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.currentSelectedGameObject == null)
             {
@@ -109,13 +111,15 @@ public class ClickToAcupuncture : MonoBehaviour
             {
                 isClick = true;
             }
-        }
+        }*/
 
     }
 
     private void LateUpdate()
     {
         IsAcupunctureRight();
+
+        //IsAcupuncture2Right();
     }
 
     /*void OnAnchorClick(ButtonGroup buttonGroup)
@@ -140,11 +144,13 @@ public class ClickToAcupuncture : MonoBehaviour
         Debug.Log("Click!!!");
 
         _Acupuncture = anchor.GetComponent<Acupuncture>();
-        if(_Acupuncture._BezierObject != null)
+        
+        if (_Acupuncture._BezierObject != null)
         {
             _BezierObject = _Acupuncture._BezierObject;
             _BezierMove = _BezierObject.GetComponent<BezierMove>();
         }
+  
 
         isClick = true;
 
@@ -156,6 +162,8 @@ public class ClickToAcupuncture : MonoBehaviour
                 lifeNumberChange.theHeartNumber--;
 
                 DestroyAcupuncture();
+
+                //DestroyAcupuncture2();
             }
         }
         else
@@ -163,9 +171,7 @@ public class ClickToAcupuncture : MonoBehaviour
 
             _IsAcupunctureRight = true;
             _Index = (int)index;
-
-            RectTransform rectTransform = _ButtonGroups[(int)index]._Anchor.GetComponent<RectTransform>();
-            _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[(int)index]);
+                   
 
             //Debug.Log(""+_UIManagerController.name);
             //_ButtonGroups[(int)index]._Anchor.gameObject.SetActive(false);
@@ -190,6 +196,40 @@ public class ClickToAcupuncture : MonoBehaviour
                         lifeNumberChange.theHeartNumber--;
                     }
 
+                    DestroyAcupuncture();
+                }
+                else
+                {
+                    StartCoroutine(WaitForTime(1f, () =>
+                    {
+                        _ButtonGroups[_Index]._Anchor.gameObject.SetActive(false);
+                        tipForAcu.isClicked[tipForAcu.clickQueue[tipForAcu.clickNum]] = true;
+                        RectTransform rectTransform = _ButtonGroups[_Index]._Anchor.GetComponent<RectTransform>();
+                        _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[_Index]);
+                        DestroyAcupuncture();
+                    }));
+                }
+                _IsAcupunctureRight = false;
+                
+            }
+        }
+    }
+
+    void IsAcupuncture2Right()
+    {
+        if (_IsAcupunctureRight == true && _Acupuncture2 != null)
+        {
+            if (_Acupuncture2._State == Acupuncture2.AcupunctureState.Niddling)
+            {
+                _NowBezierPos = _BezierMove._CurrentPosNum;
+
+                if (!(_NowBezierPos >= _LeftBezierPos && _NowBezierPos <= _RightBezierPos))
+                {
+                    if (lifeNumberChange.theHeartNumber != 0)
+                    {
+                        lifeNumberChange.theHeartNumber--;
+                    }
+
                     //DestroyAcupuncture();
                 }
                 else
@@ -198,6 +238,8 @@ public class ClickToAcupuncture : MonoBehaviour
                     {
                         _ButtonGroups[_Index]._Anchor.gameObject.SetActive(false);
                         tipForAcu.isClicked[tipForAcu.clickQueue[tipForAcu.clickNum]] = true;
+                        RectTransform rectTransform = _ButtonGroups[_Index]._Anchor.GetComponent<RectTransform>();
+                        _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[_Index]);
                     }));
                 }
                 _IsAcupunctureRight = false;
@@ -207,9 +249,17 @@ public class ClickToAcupuncture : MonoBehaviour
 
     void DestroyAcupuncture()
     {
-        _Acupuncture.DestroyBezierObject();
+        _Acupuncture._IsAcupuncture = false;
         _Acupuncture.DestroyNiddle();
+        _Acupuncture.DestroyBezierObject();
         _Acupuncture = null;
+    }
+
+    void DestroyAcupuncture2()
+    {
+        _Acupuncture2.DestroyBezierObject();
+        _Acupuncture2.DestroyNiddle();
+        _Acupuncture2 = null;
     }
 
     IEnumerator WaitForTime(float duration, Action action = null)

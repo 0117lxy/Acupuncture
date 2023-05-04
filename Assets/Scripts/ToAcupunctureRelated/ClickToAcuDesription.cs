@@ -169,9 +169,7 @@ public class ClickToAcuDesription : MonoBehaviour
             _IsAcupunctureRight = true;
             _Index = (int)index;
 
-            RectTransform rectTransform = _ButtonGroups[(int)index]._Anchor.GetComponent<RectTransform>();
-
-            _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[(int)index]);
+            
 
             //Debug.Log(""+_UIManagerController.name);
             //_ButtonGroups[(int)index]._Anchor.gameObject.SetActive(false);
@@ -204,6 +202,9 @@ public class ClickToAcuDesription : MonoBehaviour
                     {
                         _ButtonGroups[_Index]._Anchor.gameObject.SetActive(false);
                         tipForAcuDescirption.isClicked[tipForAcuDescirption.clickQueue[tipForAcuDescirption.clickNum]] = true;
+                        RectTransform rectTransform = _ButtonGroups[_Index]._Anchor.GetComponent<RectTransform>();
+
+                        _UIManagerController.ShowUpAnchorName(rectTransform.position, _Anchor1Names[_Index]);
                     }));
                 }
                 _IsAcupunctureRight = false;
