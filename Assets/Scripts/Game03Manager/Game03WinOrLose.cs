@@ -16,6 +16,7 @@ public class Game03WinOrLose : MonoBehaviour
     private string _WinBackScene;//胜利返回界面
     private string _LoseBackScene;//失败返回界面
 
+
     public GameObject _RewardPanel;//奖励面板
     public Button _RewardPanelButton;
     private string _RewardBackScene;//失败返回界面
@@ -59,9 +60,9 @@ public class Game03WinOrLose : MonoBehaviour
     {
         if (_ClickTip.GetComponent<TipForAcuDescirption>()._ClickAll == true && _LifeNumberObj.GetComponent<LifeNumberChange>().nowHeartNumber > 0)
         {
-            //_WinPanel.SetActive(true);
-            _RewardPanel.SetActive(true);
-            Reward._IsHaveReward[3] = true;
+            _WinPanel.SetActive(true);
+            //_RewardPanel.SetActive(true);
+            //Reward._IsHaveReward[3] = true;
         }
     }
 

@@ -174,7 +174,7 @@ public class QuestionManager : MonoBehaviour
                     _RightAnswerText.SetActive(true);
                 }
                 //设置奖励陈列馆中对应位置的奖励为true，表示已经获得该奖励
-                Reward._IsHaveReward[1] = true;
+                Reward._IsHaveReward[3] = true;
             }
             else if(selectedAnswerIndex != _Questions.questions[currentQuestionIndex].correctAnswerIndex)
             {

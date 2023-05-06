@@ -25,6 +25,9 @@ public class GameSelectNiddleManager : MonoBehaviour
     public GameObject _WinPanel;//胜利面板
     public Button _WinButton;//胜利按钮
 
+    public GameObject _RewardPanel;
+    public Button _RewardPanelButton;
+
     public GameObject _LosePanel;//失败面板
     public Button _LoseButton;//失败按钮
 
@@ -63,6 +66,8 @@ public class GameSelectNiddleManager : MonoBehaviour
             }
         });
 
+        
+
         //选择正确的panel的Button的操作，隐藏TruePanel，开启下一次交换操作
         _TrueButton.onClick.AddListener(delegate ()
         {
@@ -70,7 +75,8 @@ public class GameSelectNiddleManager : MonoBehaviour
             {
                 _TruePanel.SetActive(false);
                 _MagicNiddle._Niddles[GameSelectNiddle._NiddleNum].SetActive(false);
-                GameSelectNiddle._NiddleNum++;                
+                GameSelectNiddle._NiddleNum++; 
+                Debug.Log("NiddleNum is :" + GameSelectNiddle._NiddleNum);
                 if (GameSelectNiddle._NiddleNum < _SelectTime)
                 {
                     _MagicNiddle._Niddles[GameSelectNiddle._NiddleNum].SetActive(true);
@@ -83,6 +89,12 @@ public class GameSelectNiddleManager : MonoBehaviour
         _BackScene = "Game00";
 
         _WinButton.onClick.AddListener(delegate ()
+        {
+            Globe._NextSceneName = _BackScene;
+            SceneManager.LoadScene("Loading");
+        });
+
+        _RewardPanelButton.onClick.AddListener(delegate ()
         {
             Globe._NextSceneName = _BackScene;
             SceneManager.LoadScene("Loading");
@@ -122,7 +134,7 @@ public class GameSelectNiddleManager : MonoBehaviour
         }*/
 
         //判断胜利与失败
-        ToWin();
+        //ToWin();
         ToLose();
 
     }
@@ -181,8 +193,12 @@ public class GameSelectNiddleManager : MonoBehaviour
             }
             else
             {
-                _WinPanel.SetActive(true);
+                ToWin();
             }
+            /*else
+            {
+                _WinPanel.SetActive(true);
+            }*/
         }  
         else
         {
@@ -212,12 +228,23 @@ public class GameSelectNiddleManager : MonoBehaviour
     //胜利条件判定
     void ToWin()
     {
-        if(GameSelectNiddle._NiddleNum == 3 && _LifeNumberChange.nowHeartNumber > 0)
+        /*if(GameSelectNiddle._NiddleNum == 3 && _LifeNumberChange.nowHeartNumber > 0)
         {
-            if (_WinPanel.activeSelf == false)
+            *//*if (_WinPanel.activeSelf == false)
             {
                 _WinPanel.SetActive(true);
+            }*//*
+            if (_RewardPanel.activeSelf == false)
+            {
+                _RewardPanel.SetActive(true);
+                Reward._IsHaveReward[1] = true;
             }
+        }*/
+
+        if (_RewardPanel.activeSelf == false)
+        {
+            _RewardPanel.SetActive(true);
+            Reward._IsHaveReward[1] = true;
         }
     }
 
